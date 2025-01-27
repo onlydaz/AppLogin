@@ -88,7 +88,15 @@ const loginUser = (username, password, callback) => {
 };
 
 // Reset mật khẩu
-
+const resetPassword = (email, newPassword, callback) => {
+    const query = 'UPDATE users SET password = ? WHERE email = ?';
+    db.query(query, [newPassword, email], (err, result) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, 'Password reset successful!');
+    });
+};
 
 module.exports = { sendOtp, registerUser, verifyOtp, loginUser, resetPassword };
 

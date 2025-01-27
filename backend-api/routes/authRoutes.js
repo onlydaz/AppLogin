@@ -58,6 +58,17 @@ router.post('/login', (req, res) => {
 });
 
 // API Reset mật khẩu
-
+router.post('/reset-password', (req, res) => {
+    const { email, newPassword } = req.body;
+    if (!email || !newPassword) {
+        return res.status(400).json({ message: 'Email and New Password are required!' });
+    }
+    resetPassword(email, newPassword, (error, message) => {
+        if (error) {
+            return res.status(500).json({ message: error });
+        }
+        return res.status(200).json({ message });
+    });
+});
 
 module.exports = router;
